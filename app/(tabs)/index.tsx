@@ -1,98 +1,159 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { View, TouchableOpacity, Image } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
+import HomeScreen from "../../components/screen/HomeScreen";
+import CartScreen from "../../components/screen/CartScreen";
+import ProfileScreen from "../../components/screen/ProfileScreen";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Entypo from '@expo/vector-icons/Entypo';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
-export default function HomeScreen() {
+function BottomTabs() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: "#fb6114",
+          height: 70,
+          borderRadius: 50,
+          paddingTop: 14,
+        },
+        tabBarActiveTintColor: 'rgb(162, 52, 15)',
+        tabBarInactiveTintColor: '#ffffffff',
+        tabBarLabelStyle: {
+          fontWeight: '800',
+          fontSize: 12,
+          letterSpacing: 0.5,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View
+              style={{
+                width: 80,
+                height: 67,
+                borderRadius: 20,
+                // borderTopLeftRadius: 30,
+                backgroundColor: focused ? '#ffab62' : 'transparent',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Feather
+                name="home"
+                size={28}
+                color={color}
               />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+            </View>
+          ),
+          tabBarShowLabel: true,
+        }}
+      />
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View
+              style={{
+                width: 80,
+                height: 65,
+                borderRadius: 15,
+                backgroundColor: focused ? '#ffab62' : 'transparent',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <MaterialIcons name="add-shopping-cart" size={28} color={color} />
+            </View>
+          ),
+          tabBarShowLabel: true,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View
+              style={{
+                width: 80,
+                height: 67,
+                borderRadius: 20,
+                // borderTopRightRadius: 34,
+                backgroundColor: focused ? '#ffab62' : 'transparent',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <FontAwesome5 name="user" size={28} color={color} />
+            </View>
+          ),
+          tabBarShowLabel: true,
+        }}
+      />
+
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default function Index() {
+  return (
+    <Drawer.Navigator
+      screenOptions={({ navigation }) => ({
+        drawerStyle: {
+          backgroundColor: '#ff9b69',
+          paddingTop: 20,
+        },
+        drawerActiveTintColor: 'rgb(135, 44, 13)',
+        drawerInactiveTintColor: '#ffffff',
+        drawerLabelStyle: {
+          fontSize: 16,
+          fontWeight: 'bold',
+        },
+        headerShown: true,
+        headerStyle: { backgroundColor: '#fb6114' },
+        headerTintColor: '#fff',
+        headerTitle: 'Foodie',
+        headerTitleAlign: 'center',
+        headerTitleStyle: { fontWeight: 'bold' },
+        swipeEnabled: true,
+        drawerType: 'front',
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.toggleDrawer()}
+            style={{ paddingHorizontal: 16 }}
+          >
+            <Feather name="menu" size={24} color="#ffffff" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => {}} style={{ paddingHorizontal: 16 }}>
+            <Image
+                        style={{ width: 40, height: 40, borderRadius: 50, marginLeft: 130, marginTop: 5 }}
+                        source={{ uri: "https://img.freepik.com/premium-vector/stylish-sophisticated-elegant-man-with-unique-hairstyle-design-fashionable-clothing_1120558-50407.jpg" }}
+                    />
+          </TouchableOpacity>
+        ),
+      })}
+    >
+      <Drawer.Screen name="Home" component={BottomTabs} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
+    </Drawer.Navigator>
+  );
+}
