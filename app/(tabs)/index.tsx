@@ -24,6 +24,11 @@ function BottomTabs() {
           height: 70,
           borderRadius: 50,
           paddingTop: 14,
+          paddingBottom: 10,
+          position: 'absolute',
+          marginHorizontal: 10,
+          marginBottom: 5,
+          
         },
         tabBarActiveTintColor: 'rgb(162, 52, 15)',
         tabBarInactiveTintColor: '#ffffffff',

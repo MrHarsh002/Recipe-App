@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 const API_BASE_URL = 'http://10.0.2.2:5001';
 
 const ProfileScreen = () => {
-  const [mode, setMode] = useState('login'); // 'login' | 'signup'
+  const [mode, setMode] = useState('login');
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
