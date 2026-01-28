@@ -6,6 +6,7 @@ import Feather from '@expo/vector-icons/Feather';
 import HomeScreen from "../../components/screen/HomeScreen";
 import CartScreen from "../../components/screen/CartScreen";
 import ProfileScreen from "../../components/screen/ProfileScreen";
+import { CartProvider } from "../../context/CartContext";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -114,6 +115,7 @@ function BottomTabs() {
 
 export default function Index() {
   return (
+    <CartProvider>
     <Drawer.Navigator
       screenOptions={({ navigation }) => ({
         drawerStyle: {
@@ -155,5 +157,6 @@ export default function Index() {
       <Drawer.Screen name="Home" component={BottomTabs} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
     </Drawer.Navigator>
+    </CartProvider>
   );
 }
